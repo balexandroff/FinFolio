@@ -18,6 +18,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.8" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FinFolio.Common\FinFolio.Core.csproj" />
+    <ProjectReference Include="..\FinFolio.Services\FinFolio.Services.csproj" />
   </ItemGroup>
 
 </Project>
