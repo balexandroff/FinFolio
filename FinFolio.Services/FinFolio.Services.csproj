@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+    <Folder Include="Implementaiton\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FinFolio.Common\FinFolio.Core.csproj" />
+    <ProjectReference Include="..\FinFolio.Data\FinFolio.Data.csproj" />
+  </ItemGroup>
+
+</Project>
