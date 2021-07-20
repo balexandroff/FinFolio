@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FinFolio.Data;
+using FinFolio.Data.Entities;
+using FinFolio.Data.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,7 +33,7 @@ namespace FinFolio
             services.AddDbContext<FinFolioContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<FinFolioContext>();
             services.AddRazorPages();
             services.AddAuthentication()
@@ -50,6 +52,9 @@ namespace FinFolio
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FinFolio.API", Version = "v1" });
             });
+
+            services.AddScoped<UserManager<ApplicationUser>>();
+            services.AddScoped<SignInManager<ApplicationUser>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
