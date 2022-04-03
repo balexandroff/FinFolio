@@ -11,11 +11,11 @@ namespace FinFolio.Areas.Identity.Pages.Account.Manage
 {
     public class Disable2faModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<Core.Entities.User> _userManager;
         private readonly ILogger<Disable2faModel> _logger;
 
         public Disable2faModel(
-            UserManager<IdentityUser> userManager,
+            UserManager<Core.Entities.User> userManager,
             ILogger<Disable2faModel> logger)
         {
             _userManager = userManager;

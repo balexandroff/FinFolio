@@ -11,13 +11,13 @@ namespace FinFolio.Areas.Identity.Pages.Account.Manage
 {
     public class ChangePasswordModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<Core.Entities.User> _userManager;
+        private readonly SignInManager<Core.Entities.User> _signInManager;
         private readonly ILogger<ChangePasswordModel> _logger;
 
         public ChangePasswordModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<Core.Entities.User> userManager,
+            SignInManager<Core.Entities.User> signInManager,
             ILogger<ChangePasswordModel> logger)
         {
             _userManager = userManager;

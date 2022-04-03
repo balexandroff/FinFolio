@@ -10,13 +10,13 @@ namespace FinFolio.Areas.Identity.Pages.Account.Manage
 {
     public class DeletePersonalDataModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<Core.Entities.User> _userManager;
+        private readonly SignInManager<Core.Entities.User> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
 
         public DeletePersonalDataModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<Core.Entities.User> userManager,
+            SignInManager<Core.Entities.User> signInManager,
             ILogger<DeletePersonalDataModel> logger)
         {
             _userManager = userManager;

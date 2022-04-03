@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -25,5 +25,17 @@
     <ProjectReference Include="..\FinFolio.Common\FinFolio.Core.csproj" />
     <ProjectReference Include="..\FinFolio.Services\FinFolio.Services.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <binFilesToCopy Include="..\FinFolio.Services\Extractor\*" />
+  </ItemGroup>
+
+  <Target Name="AfterPublish">
+    <Copy SourceFiles ="@(binFilesToCopy)" DestinationFolder ="$(OutDir)\bin\Extractor" />
+  </Target>
+
+  <Target Name="AfterBuild">
+    <Copy SourceFiles ="@(binFilesToCopy)" DestinationFolder ="$(OutDir)\bin\Extractor" />
+  </Target>
 
 </Project>

@@ -1,0 +1,27 @@
+import yfinance as yf
+import pandas as pd 
+#data = yf.download("SPY AAPL", start="2017-01-01", end="2017-04-30")
+#pd.DataFrame(data).to_csv("aapl.csv")
+
+msft = yf.Ticker("MSFT")
+
+pd.DataFrame(msft.info).to_csv("stocks/msft/info.csv")
+#pd.DataFrame(msft.actions).to_csv("stocks/msft/actions.csv")
+pd.DataFrame(msft.dividends).to_csv("stocks/msft/dividends.csv")
+pd.DataFrame(msft.splits).to_csv("stocks/msft/splits.csv")
+pd.DataFrame(msft.financials).to_csv("stocks/msft/financials.csv")
+pd.DataFrame(msft.quarterly_financials).to_csv("stocks/msft/quarterly_financials.csv")
+pd.DataFrame(msft.major_holders).to_csv("stocks/msft/major_holders.csv")
+pd.DataFrame(msft.institutional_holders).to_csv("stocks/msft/institutional_holders.csv")
+pd.DataFrame(msft.balance_sheet).to_csv("stocks/msft/balance_sheet.csv")
+pd.DataFrame(msft.quarterly_balance_sheet).to_csv("stocks/msft/quarterly_balance_sheet.csv")
+pd.DataFrame(msft.cashflow).to_csv("stocks/msft/cashflow.csv")
+pd.DataFrame(msft.quarterly_cashflow).to_csv("stocks/msft/quarterly_cashflow.csv")
+pd.DataFrame(msft.earnings).to_csv("stocks/msft/earnings.csv")
+pd.DataFrame(msft.quarterly_earnings).to_csv("stocks/msft/quarterly_earnings.csv")
+pd.DataFrame(msft.sustainability).to_csv("stocks/msft/sustainability.csv")
+pd.DataFrame(msft.recommendations).to_csv("stocks/msft/recommendations.csv")
+pd.DataFrame(msft.calendar).to_csv("stocks/msft/calendar.csv")
+#pd.DataFrame(msft.isin).to_csv("stocks/msft/isin.csv")
+#pd.DataFrame(msft.options).to_csv("stocks/msft/options.csv")
+#pd.DataFrame(msft.news).to_csv("stocks/msft/news.csv")

@@ -11,12 +11,12 @@ namespace FinFolio.Areas.Identity.Pages.Account.Manage
 {
     public class ExternalLoginsModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<Core.Entities.User> _userManager;
+        private readonly SignInManager<Core.Entities.User> _signInManager;
 
         public ExternalLoginsModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            UserManager<Core.Entities.User> userManager,
+            SignInManager<Core.Entities.User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -86,7 +86,7 @@ namespace FinFolio.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID 'user.Id'.");
             }
 
-            var info = await _signInManager.GetExternalLoginInfoAsync(user.Id);
+            var info = await _signInManager.GetExternalLoginInfoAsync(user.Id.ToString());
             if (info == null)
             {
                 throw new InvalidOperationException($"Unexpected error occurred loading external login info for user with ID '{user.Id}'.");

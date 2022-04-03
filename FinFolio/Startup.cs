@@ -1,18 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FinFolio.Data;
+using FinFolio.Core.Entities;
+using FinFolio.Services.Implementaiton;
+using FinFolio.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using FinFolio.Core.Interfaces;
+using FinFolio.Data.Repositories;
+using System.Reflection;
+using System.Linq;
 
 namespace FinFolio
 {
@@ -28,10 +28,13 @@ namespace FinFolio
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.RegisterRepositories();
+            services.RegisterServices();
+
             services.AddDbContext<FinFolioContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<FinFolioContext>();
             services.AddRazorPages();
             services.AddAuthentication()
@@ -83,6 +86,57 @@ namespace FinFolio
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
+        }
+    }
+
+    public static class ServiceCollectionExtensions
+    {
+        public static IServiceCollection RegisterRepositories(this IServiceCollection services)
+        {
+            var repoTypes = Assembly.Load(typeof(BaseRepository).Assembly.GetName())
+                          .GetTypes()
+                          .Where(x => !string.IsNullOrEmpty(x.Namespace))
+                          .Where(x => x.IsClass)
+                          .Where(x => !x.IsAbstract)
+                          .Where(x => typeof(IRepository).IsAssignableFrom(x))
+                          .Select(x => new
+                          {
+                              Interface = x.GetInterface($"I{x.Name}"),
+                              Implementation = x
+                          })
+                          .ToList();
+
+            foreach (var repoType in repoTypes)
+            {
+                var a = repoType.Interface;
+                var b = repoType.Implementation;
+                services.AddTransient(repoType.Interface, repoType.Implementation);
+            }
+
+            return services;
+        }
+
+        public static IServiceCollection RegisterServices(this IServiceCollection services)
+        {
+            var serviceTypes = Assembly.Load(typeof(StockService).Assembly.GetName())
+                          .GetTypes()
+                          .Where(x => !string.IsNullOrEmpty(x.Namespace))
+                          .Where(x => x.IsClass)
+                          .Where(x => !x.IsAbstract)
+                          .Where(x => typeof(IService).IsAssignableFrom(x))
+                          .Select(x => new
+                          {
+                              Interface = x.GetInterface($"I{x.Name}"),
+                              Implementation = x
+                          })
+                          .ToList();
+
+            foreach (var serviceType in serviceTypes)
+            {
+                services.AddTransient(serviceType.Interface, serviceType.Implementation);
+            }
+
+            return services;
         }
     }
 }
