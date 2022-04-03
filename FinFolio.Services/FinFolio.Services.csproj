@@ -17,9 +17,6 @@
     <None Update="Extractor\.travis.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Extractor\AAPL.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Extractor\folder.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -30,9 +27,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Extractor\mkdocs.yml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Extractor\msft.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Extractor\README.md">
